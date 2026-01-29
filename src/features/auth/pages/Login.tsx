@@ -6,12 +6,12 @@ import {
     IonText
 } from '@ionic/react';
 import { useState } from 'react';
-import { login as loginService } from '../services/auth.service';
+import { login, loginWithGoogle } from '../services/auth.service';
 import { useAuthStore } from '@/store/auth.store';
 import { useHistory } from 'react-router';
 
 export default function Login() {
-    const login = useAuthStore(state => state.login);
+    const loginStore = useAuthStore(state => state.login);
     const history = useHistory();
 
     const [email, setEmail] = useState('');
@@ -20,12 +20,16 @@ export default function Login() {
 
     async function handleLogin() {
         try {
-            const res = await loginService(email, password);
-            login(res);
+            const res = await login(email, password);
+            loginStore(res);
             history.replace('/app');
         } catch (e: any) {
             setError(e.message);
         }
+    }
+
+    function handleGoogleLogin() {
+        loginWithGoogle();
     }
 
     return (
@@ -66,19 +70,16 @@ export default function Login() {
                     >
                         Entrar
                     </IonButton>
+
                     <IonButton
                         expand="block"
                         color="light"
-                        onClick={() =>
-                            window.location.href =
-                            'http://localhost:3000/auth/google'
-                        }
+                        onClick={handleGoogleLogin}
                     >
                         Continuar con Google
                     </IonButton>
                 </div>
             </IonContent>
         </IonPage>
-
     );
 }
