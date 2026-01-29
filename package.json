@@ -1,5 +1,5 @@
 {
-  "name": "meetly",
+  "name": "meetly-fe",
   "private": true,
   "version": "0.0.1",
   "type": "module",
@@ -22,10 +22,13 @@
     "@types/react-router": "^5.1.20",
     "@types/react-router-dom": "^5.3.3",
     "ionicons": "^7.4.0",
+    "passport": "^0.7.0",
+    "passport-google-oauth20": "^2.0.0",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-router": "^5.3.4",
-    "react-router-dom": "^5.3.4"
+    "react-router-dom": "^5.3.4",
+    "zustand": "^5.0.10"
   },
   "devDependencies": {
     "@capacitor/cli": "8.0.1",
