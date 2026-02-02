@@ -8,21 +8,24 @@ import {
 } from '@ionic/react';
 import { calendar, people, person } from 'ionicons/icons';
 import { Route, Redirect } from 'react-router-dom';
+import Events from '@/features/events/pages/Events';
+import Groups from '@/features/groups/pages/Groups';
+import Profile from '@/features/profile/pages/Profile';
 
 export function AuthTabs() {
   return (
     <IonTabs>
       <IonRouterOutlet>
-        <Route path="/app/events">
-          <div>Eventos</div>
+        <Route exact path="/app/events">
+          <Events />
         </Route>
 
-        <Route path="/app/groups">
-          <div>Grupos</div>
+        <Route exact path="/app/groups">
+          <Groups />
         </Route>
 
-        <Route path="/app/profile">
-          <div>Perfil</div>
+        <Route exact path="/app/profile">
+          <Profile />
         </Route>
 
         <Redirect exact from="/app" to="/app/events" />

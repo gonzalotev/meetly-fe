@@ -1,17 +1,50 @@
-import { IonHeader, IonToolbar, IonTitle } from '@ionic/react';
+import {
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonAvatar,
+  IonLabel,
+  IonSkeletonText
+} from '@ionic/react';
+import { useAuthStore } from '@/store/auth.store';
 
-export function AppHeader() {
+export function AppHeader({ title }: { title: string }) {
+  const user = useAuthStore(state => state.user);
+
   return (
-    <IonHeader>
+    <IonHeader translucent>
       <IonToolbar>
-        <IonTitle style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <img
-            src="/meetly-logo.png"
-            alt="Meetly"
-            style={{ width: 24, height: 24 }}
-          />
-          Meetly
+        <IonTitle>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <span>{title}</span>
+
+            {user ? (
+              <small style={{ opacity: 0.6 }}>{user.email}</small>
+            ) : (
+              <IonSkeletonText animated style={{ width: 120 }} />
+            )}
+          </div>
         </IonTitle>
+
+        {user ? (
+          <IonAvatar slot="end" style={{ marginRight: 12 }}>
+            <img
+              src={user.avatarUrl ?? '/avatar-placeholder.png'}
+              alt="avatar"
+            />
+          </IonAvatar>
+        ) : (
+          <IonSkeletonText
+            slot="end"
+            animated
+            style={{
+              width: 36,
+              height: 36,
+              borderRadius: '50%',
+              marginRight: 12
+            }}
+          />
+        )}
       </IonToolbar>
     </IonHeader>
   );

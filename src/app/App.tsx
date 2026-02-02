@@ -15,7 +15,6 @@ import '@ionic/react/css/structure.css';
 import '@ionic/react/css/typography.css';
 import '../theme/variables.css';
 
-
 setupIonicReact();
 
 export default function App() {

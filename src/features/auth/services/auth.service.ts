@@ -1,40 +1,26 @@
 import { api } from '@/services/api';
+import { User } from '@/types/user';
 
-const API_URL = import.meta.env.VITE_API_URL;
-
-export type AuthUser = {
-  id: string;
-  email: string;
-};
-
-export type LoginResponse = {
+export type AuthResponse = {
+  user: User;
   accessToken: string;
   refreshToken: string;
-  user: AuthUser;
 };
 
-export function login(
-  email: string,
-  password: string
-): Promise<LoginResponse> {
-  return api.post<LoginResponse>('/auth/login', {
+export function login(email: string, password: string) {
+  return api.post<AuthResponse>('/auth/login', {
     email,
     password
   });
 }
 
-export function refreshToken(
-  refreshToken: string
-): Promise<{ accessToken: string }> {
-  return api.post<{ accessToken: string }>('/auth/refresh', {
-    refreshToken
-  });
+export function refreshToken(refreshToken: string) {
+  return api.post<{ accessToken: string }>(
+    '/auth/refresh',
+    { refreshToken }
+  );
 }
 
-export function loginWithGoogle(): void {
-  redirectToOAuthProvider('google');
-}
-
-function redirectToOAuthProvider(provider: 'google'): void {
-  window.location.href = `${API_URL}/auth/${provider}`;
+export function loginWithGoogle() {
+  window.location.href = `${import.meta.env.VITE_API_URL}/auth/google`;
 }

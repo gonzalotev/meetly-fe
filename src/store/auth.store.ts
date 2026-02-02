@@ -1,9 +1,5 @@
 import { create } from 'zustand';
-
-type User = {
-    id: string;
-    email: string;
-};
+import { User } from '@/types/user';
 
 type AuthState = {
     user: User | null;
@@ -42,13 +38,13 @@ export const useAuthStore = create<AuthState>((set) => ({
     },
 
     logout: () => {
-        localStorage.clear();
         set({
             user: null,
             accessToken: null,
             refreshToken: null,
             isAuthenticated: false
         });
+        localStorage.removeItem('auth');
     },
 
     hydrate: () => {
